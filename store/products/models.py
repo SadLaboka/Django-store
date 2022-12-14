@@ -48,6 +48,10 @@ class Basket(models.Model):
 
     objects = BasketQuerySet.as_manager()
 
+    class Meta:
+        verbose_name = 'Basket'
+        verbose_name_plural = 'Baskets'
+
     def __str__(self):
         return f'Корзина для {self.user.username} | Продукт: {self.product.name}'
 
