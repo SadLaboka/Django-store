@@ -86,26 +86,55 @@
                     {% endfor %}
 
                 </div>
-
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        {% if products.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="{% url 'products:paginator' products.previous_page_number %}"
-                                   tabindex="-1" aria-disabled="true">Предыдущая</a>
-                            </li>
-                        {% endif %}
-                        {% for page in products.paginator.page_range %}
-                            <li class="page-item"><a class="page-link" href="{% url 'products:paginator' page %}">{{ page }}</a></li>
-                        {% endfor %}
-                        {% if products.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="{% url 'products:paginator' products.next_page_number %}">Следующая</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-
+                {% if products.paginator.num_pages > 1 %}
+                    {% if not category %}
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                {% if products.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{% url 'products:paginator' products.previous_page_number %}"
+                                           tabindex="-1" aria-disabled="true">Предыдущая</a>
+                                    </li>
+                                {% endif %}
+                                {% for page in products.paginator.page_range %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="{% url 'products:paginator' page %}">{{ page }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if products.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{% url 'products:paginator' products.next_page_number %}">Следующая</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% else %}
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                {% if products.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{% url 'products:category_paginator' category products.previous_page_number %}"
+                                           tabindex="-1" aria-disabled="true">Предыдущая</a>
+                                    </li>
+                                {% endif %}
+                                {% for page in products.paginator.page_range %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="{% url 'products:category_paginator' category page %}">{{ page }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if products.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{% url 'products:category_paginator' category products.next_page_number %}">Следующая</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% endif %}
+                {% endif %}
             </div>
 
         </div>
