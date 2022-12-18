@@ -1,0 +1,7 @@
+[flake8]
+exclude = venv,
+    git,
+    migrations
+
+
+max-line-length = 120
