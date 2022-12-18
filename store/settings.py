@@ -29,6 +29,7 @@ DEBUG = int(os.getenv('DEBUG', default=1))
 
 ALLOWED_HOSTS = ['*']
 
+DOMAIN_NAME = str(os.getenv('DOMAIN_NAME'))
 # Application definition
 
 INSTALLED_APPS = [
@@ -144,7 +145,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Users
+
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Email sending
+
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+EMAIL_USE_SSL = int(os.getenv('EMAIL_USE_SSL'))
