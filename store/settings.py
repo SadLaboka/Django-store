@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 
     'products',
     'users',
@@ -156,8 +162,26 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Email sending
 
-EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
-EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
-EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
-EMAIL_USE_SSL = int(os.getenv('EMAIL_USE_SSL'))
+# # EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+# # EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+# # EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+# # EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+# EMAIL_USE_SSL = int(os.getenv('EMAIL_USE_SSL'))
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# OAuth
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+        ],
+    }
+}
