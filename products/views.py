@@ -15,7 +15,7 @@ class IndexView(TitleMixin, TemplateView):
 
 class ProductsListView(TitleMixin, ListView):
 
-    paginate_by = 1
+    paginate_by = 6
     model = Product
     template_name = 'products/products.html'
     title = 'Store - Каталог'

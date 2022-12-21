@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from products.models import Product, ProductCategory
+from products.views import ProductsListView
 
 
 class IndexViewTestCase(TestCase):
@@ -23,13 +24,14 @@ class ProductsListViewTestCase(TestCase):
     def setUp(self):
         self.products = Product.objects.all()
         self.category = ProductCategory.objects.first()
+        self.paginator = ProductsListView.paginate_by
 
     def test_list(self):
         path = reverse('products:index')
         response = self.client.get(path)
         self._common_tests(response)
 
-        self.assertEqual(list(response.context_data['object_list']), list(self.products[:1]))
+        self.assertEqual(list(response.context_data['object_list']), list(self.products[:self.paginator]))
 
     def test_list_with_category(self):
         path = reverse('products:category', kwargs={'category_id': self.category.id})
@@ -38,7 +40,7 @@ class ProductsListViewTestCase(TestCase):
 
         self.assertEqual(
             list(response.context_data['object_list']),
-            list(self.products.filter(category_id=self.category.id)[:1])
+            list(self.products.filter(category_id=self.category.id)[:self.paginator])
         )
 
     def test_list_with_page(self):
@@ -46,7 +48,8 @@ class ProductsListViewTestCase(TestCase):
         response = self.client.get(path)
         self._common_tests(response)
 
-        self.assertEqual(list(response.context_data['object_list']), list(self.products[1:2]))
+        self.assertEqual(list(response.context_data['object_list']),
+                         list(self.products[self.paginator:self.paginator*2]))
 
     def test_list_with_category_and_page(self):
         path = reverse(
@@ -58,7 +61,7 @@ class ProductsListViewTestCase(TestCase):
 
         self.assertEqual(
             list(response.context_data['object_list']),
-            list(self.products.filter(category_id=self.category.id)[1:2])
+            list(self.products.filter(category_id=self.category.id)[self.paginator:self.paginator*2])
         )
 
     def _common_tests(self, response):
