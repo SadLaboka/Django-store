@@ -5,7 +5,9 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
 from common.views import TitleMixin
@@ -14,6 +16,27 @@ from orders.models import Order
 from products.models import Basket
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+class OrderDetailView(DetailView):
+    template_name = 'orders/order.html'
+    model = Order
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderDetailView, self).get_context_data(**kwargs)
+        context['title'] = f'Store - Заказ #{self.object.id}'
+        return context
+
+
+class OrdersListView(TitleMixin, ListView):
+    template_name = 'orders/orders.html'
+    title = 'Stor - Заказы'
+    queryset = Order.objects.all()
+    ordering = ('-id')
+
+    def get_queryset(self):
+        queryset = super(OrdersListView, self).get_queryset()
+        return queryset.filter(initiator=self.request.user)
 
 
 class SuccessTemplateView(TitleMixin, TemplateView):
@@ -60,10 +83,10 @@ def stripe_webhook_view(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
-    except ValueError as e:
+    except ValueError:
         # Invalid payload
         return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
+    except stripe.error.SignatureVerificationError:
         # Invalid signature
         return HttpResponse(status=400)
 
