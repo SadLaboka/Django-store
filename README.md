@@ -1,1 +1,1 @@
-# store-server
+# Django-store
