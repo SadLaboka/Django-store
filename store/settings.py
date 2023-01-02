@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
-
     'debug_toolbar',
+    'django_extensions',
 
     'orders',
     'products',
@@ -94,14 +94,17 @@ INTERNAL_IPS = [
     'localhost',
 ]
 
+# Redis
+
 REDIS_HOST = str(os.getenv("REDIS_HOST"))
 REDIS_PORT = str(os.getenv("REDIS_PORT"))
-REDIS_DB = str(os.getenv("REDIS_DB"))
+
+# Cache
 
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}',
+        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
@@ -166,9 +169,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-)
+
+if DEBUG:
+    STATICFILES_DIRS = (
+        BASE_DIR / 'static',
+    )
+else:
+    STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -201,12 +208,14 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+ACCOUNT_EMAIL_REQUIRED = True
+
 SITE_ID = 1
 
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'SCOPE': [
-            'user',
+            'user:email',
         ],
     }
 }
