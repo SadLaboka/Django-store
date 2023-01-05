@@ -2,10 +2,11 @@ from datetime import timedelta
 from http import HTTPStatus
 
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.timezone import now
 
-from users.models import EmailVerification, User
+from users.models import User, EmailVerification
 
 
 class UserRegistrationViewTestCase(TestCase):
@@ -28,6 +29,10 @@ class UserRegistrationViewTestCase(TestCase):
         self.assertEqual(response.context_data['title'], 'Store - Регистрация')
         self.assertTemplateUsed(response, 'users/register.html')
 
+    @override_settings(CELERY_TASK_EAGER_PROPAGATES=True,
+                       CELERY_TASK_ALWAYS_EAGER=True,
+                       BROKER_BACKEND='memory',
+                       EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend')
     def test_user_registration_post_success(self):
         username = self.data['username']
         self.assertFalse(User.objects.filter(username=username).exists())
@@ -43,6 +48,7 @@ class UserRegistrationViewTestCase(TestCase):
             email_verification.first().expiration.date(),
             (now() + timedelta(hours=48)).date()
         )
+        self.assertTrue(User.objects.filter(username=username).exists())
 
     def test_user_registration_post_error(self):
         username = self.data['username']

@@ -100,16 +100,22 @@ REDIS_HOST = str(os.getenv("REDIS_HOST"))
 REDIS_PORT = str(os.getenv("REDIS_PORT"))
 
 # Cache
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+if DEBUG:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -210,7 +216,7 @@ AUTHENTICATION_BACKENDS = [
 
 ACCOUNT_EMAIL_REQUIRED = True
 
-SITE_ID = 1
+SITE_ID = 2
 
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
