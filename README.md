@@ -2,6 +2,7 @@
 
 ## Build:
 [![Django CI](https://github.com/SadLaboka/Django-store/actions/workflows/build.yml/badge.svg)](https://github.com/SadLaboka/Django-store/actions/workflows/build.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a5c68370c7560ab4733f/maintainability)](https://codeclimate.com/github/SadLaboka/Django-store/maintainability)
 
 ## Example:
 ### https://sadlaboka-example.site/
