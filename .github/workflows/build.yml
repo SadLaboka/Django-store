@@ -39,3 +39,11 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+    - name: publish code coverage
+      uses: paambaati/codeclimate-action@v3.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: |
+          coverage run --source='.' manage.py test
+          coverage xml
