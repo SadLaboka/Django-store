@@ -46,4 +46,3 @@ jobs:
       with:
         coverageCommand: |
           coverage run --source='.' manage.py test
-          coverage xml
