@@ -14,6 +14,13 @@ jobs:
       DB_ENGINE: SQLite
       DOMAIN_NAME: http://127.0.0.1:8000
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      EMAIL_HOST: smtp.yandex.com
+      EMAIL_PORT: 465
+      EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+      EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+      EMAIL_USE_SSL: 1
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: 6379
     strategy:
       max-parallel: 4
       matrix:
