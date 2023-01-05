@@ -44,4 +44,6 @@ jobs:
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
-        coverageCommand: python -m coverage run --source='.' manage.py test
+        coverageCommand: |
+          coverage run --source='.' manage.py test
+          coverage xml
