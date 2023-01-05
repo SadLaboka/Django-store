@@ -10,3 +10,19 @@ Simple online-shop on Python/Django+Bootstrap.
 
 ## Example:
 ### https://sadlaboka-example.site/
+
+## Links:
+
+This project was built using these tools:
+
+| Tool                                                                        | Description                                             |
+|-----------------------------------------------------------------------------|---------------------------------------------------------|
+| [Django](https://www.djangoproject.com/)                                    | "Python web framework"                                  |
+| [Bootstrap](https://getbootstrap.com/)                                      | "HTML, CSS, and JS library"                             |
+| [PostgreSQL](https://www.postgresql.org/)                                   | "Relational database management system"                 |
+| [Redis](https://redis.io/)                                                  | "In-memory data store"                                  |
+| [Celery](https://github.com/celery/celery)                                  | "Distributed Task Queue"                                |
+| [Stripe](https://stripe.com/)                                               | "Payment Processing Platform for the Internet"          |
+| [flake8](https://github.com/PyCQA/flake8)                                   | "Python linter"                                         |
+
+---
