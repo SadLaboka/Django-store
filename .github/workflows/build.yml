@@ -8,8 +8,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    env:
+      DEBUG: 1
+      DB_ENGINE: SQLite
+      DOMAIN_NAME: http://127.0.0.1:8000
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     strategy:
       max-parallel: 4
       matrix:
