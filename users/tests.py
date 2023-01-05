@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.timezone import now
 
-from users.models import User, EmailVerification
+from users.models import EmailVerification, User
 
 
 class UserRegistrationViewTestCase(TestCase):
