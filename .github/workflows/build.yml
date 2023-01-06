@@ -58,13 +58,13 @@ jobs:
         ARGS: "-rlgoDzvc -i"
         REMOTE_HOST: ${{ secrets.HOST }}
         REMOTE_USER: ${{ secrets.USERNAME }}
-        TARGET: "/home/sadlaboka/test/"
+        TARGET: "/home/sadlaboka/store-server/store/"
         EXCLUDE: "/.github/, /.git/"
         SCRIPT_BEFORE: |
           whoami
           pwd
           ls -al
         SCRIPT_AFTER: |
-          cd /home/sadlaboka/test
-          source ../store-server/venv/bin/activate
-          python -m pip list > test.txt
+          cd /home/sadlaboka/store-server/store
+          source ../venv/bin/activate
+          python -m pip install -r requirements.txt
