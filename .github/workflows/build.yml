@@ -24,7 +24,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9]
+        python-version: [3.9]
 
     steps:
     - uses: actions/checkout@v3
@@ -58,11 +58,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         private_key: ${{ secrets.PRIVATE_KEY }}
         source: "dist/"
-        #exclude: |
-        #  *.exe
         scripts: |
           whoami
           pwd
           ls -la /home/sadlaboka/test
-        #zipname: "myZipname.zip"
         outdir: "/home/sadlaboka/test"
