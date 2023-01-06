@@ -65,6 +65,5 @@ jobs:
           ls -al
         SCRIPT_AFTER: |
           whoami
-          pwd
           ls -al
           echo $RSYNC_STDOUT
