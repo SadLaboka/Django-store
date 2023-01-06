@@ -59,9 +59,7 @@ jobs:
         REMOTE_HOST: ${{ secrets.HOST }}
         REMOTE_USER: ${{ secrets.USERNAME }}
         TARGET: "/home/sadlaboka/test/"
-        EXCLUDE: |
-          "/.git/"
-          "/.github/"
+        EXCLUDE: "/.github/, /.git/"
         SCRIPT_BEFORE: |
           whoami
           pwd
