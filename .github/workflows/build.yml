@@ -62,8 +62,8 @@ jobs:
         TARGET: "/home/sadlaboka/test/"
         SCRIPT_BEFORE: |
           whoami
-          pwd
           ls -al
         SCRIPT_AFTER: |
           whoami
+          pwd
           ls -al
