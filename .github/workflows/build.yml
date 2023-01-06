@@ -59,7 +59,6 @@ jobs:
         private_key: ${{ secrets.PRIVATE_KEY }}
         source: "dist/"
         scripts: |
-          whoami
           pwd
           ls -la /home/sadlaboka/test
         outdir: "/home/sadlaboka/test"
