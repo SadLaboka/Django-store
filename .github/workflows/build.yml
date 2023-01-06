@@ -59,7 +59,7 @@ jobs:
         SOURCE: "dist/"
         REMOTE_HOST: ${{ secrets.HOST }}
         REMOTE_USER: ${{ secrets.USERNAME }}
-        TARGET: /home/sadlaboka/test/
+        TARGET: "/home/sadlaboka/test/"
         SCRIPT_BEFORE: |
           whoami
           ls -al
