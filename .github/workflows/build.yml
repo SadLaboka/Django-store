@@ -51,14 +51,19 @@ jobs:
     name: Deployment Job
     steps:
     - uses: actions/checkout@v3
-    - name: SSH
-      uses: ErenKrt/ssh-push@main
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        private_key: ${{ secrets.PRIVATE_KEY }}
-        source: "dist/"
-        scripts: |
-          pwd
-          ls -la /home/sadlaboka/test
-        outdir: "/home/sadlaboka/test"
+    - name: Deploy to Staging server
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        ARGS: "-rlgoDzvc -i"
+        SOURCE: "dist/"
+        REMOTE_HOST: ${{ secrets.HOST }}
+        REMOTE_USER: ${{ secrets.USERNAME }}
+        TARGET: /home/sadlaboka/test/
+        SCRIPT_BEFORE: |
+          whoami
+          ls -al
+        SCRIPT_AFTER: |
+          whoami
+          ls -al
+          echo $RSYNC_STDOUT
