@@ -1,6 +1,6 @@
 # Django-store
 
-Simple online-shop on Python/Django+Bootstrap.
+SimplePython/Django+Bootstrap online-shop.
 
 ## Build:
 [![Django CI](https://github.com/SadLaboka/Django-store/actions/workflows/build.yml/badge.svg)](https://github.com/SadLaboka/Django-store/actions/workflows/build.yml)
