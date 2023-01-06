@@ -65,6 +65,6 @@ jobs:
           pwd
           ls -al
         SCRIPT_AFTER: |
-          whoami
-          pwd
-          ls -al
+          cd /home/sadlaboka/test
+          source ../store-server/venv/bin/activate
+          python -m pip list > test.txt
