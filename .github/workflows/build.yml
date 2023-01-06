@@ -60,8 +60,9 @@ jobs:
         source: "dist/"
         #exclude: |
         #  *.exe
-        #scripts: |
-        #  cd /home/eren/test && unzip myZipname.zip && rm -r *.zip
-        #  cat /home/eren/test/index.js
+        scripts: |
+          whoami
+          pwd
+          ls -la /home/sadlaboka/test
         #zipname: "myZipname.zip"
         outdir: "/home/sadlaboka/test"
