@@ -53,9 +53,9 @@
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                     <a href="#">
-                                        <i class="fab fa-google fa-2x" style="color: #d9503e;"></i>
+                                        <i class="fab fa-google fa-2x" style="{% provider_login_url 'google' %}"></i>
                                     </a>
-                                    <a href="#">
+                                    <a href="{% provider_login_url 'vk' %}">
                                         <i class="fab fa-vk fa-2x" style="color: #4a658b;"></i>
                                     </a>
                                     <a href="{% provider_login_url 'github' %}">
