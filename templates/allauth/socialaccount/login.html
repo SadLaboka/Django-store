@@ -1,0 +1,56 @@
+{% extends 'socialaccount/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{{ provider.name }}-Авторизация{% endblock %}
+{% block extra_head %}
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vendor/css/auth.css' %}">
+{% endblock %}
+{% block body %}
+
+    {% block content %}
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        {% if messages or  form.non_field_errors %}
+                            <div class="alert
+                         {% if messages %} alert-success {% else %} alert-warning {% endif %}
+                         alert-dismissible fade show" role="alert"
+                                 style="margin-top: 50px;">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.non_field_errors }}
+                                {% endif %}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Авторизация
+                                через {{ provider.name }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Вы собираетесь войти в систему, используя стороннюю учетную запись
+                                    из {{ provider.name }}.</p>
+                            </div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group mt-4 mb-0">
+                                    <input class="btn btn-primary btn-block" type="submit" value="Продолжить">
+                                </div>
+                            </form>
+                            <div class="card-footer text-center">
+                                <div class="small"><a href="{% url 'index' %}">Вернуться на главную</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    {% endblock %}
+{% endblock %}
