@@ -26,7 +26,7 @@ class UserRegistrationViewTestCase(TestCase):
         response = self.client.get(self.path)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context_data['title'], 'Store - Регистрация')
+        self.assertEqual(response.context_data['title'], 'UltraStore - Регистрация')
         self.assertTemplateUsed(response, 'users/register.html')
 
     @override_settings(CELERY_TASK_EAGER_PROPAGATES=True,
@@ -81,7 +81,7 @@ class UserLoginViewTestCase(TestCase):
         response = self.client.get(self.path)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context_data['title'], 'Store - Авторизация')
+        self.assertEqual(response.context_data['title'], 'UltraStore - Авторизация')
         self.assertTemplateUsed(response, 'users/login.html')
 
     def test_user_login_post_success(self):

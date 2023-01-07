@@ -14,7 +14,7 @@ class IndexViewTestCase(TestCase):
         response = self.client.get(path)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context_data['title'], 'Store')
+        self.assertEqual(response.context_data['title'], 'UltraStore')
         self.assertTemplateUsed(response, 'products/index.html')
 
 
@@ -66,5 +66,5 @@ class ProductsListViewTestCase(TestCase):
 
     def _common_tests(self, response):
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context_data['title'], 'Store - Каталог')
+        self.assertEqual(response.context_data['title'], 'UltraStore - Каталог')
         self.assertTemplateUsed(response, 'products/products.html')
