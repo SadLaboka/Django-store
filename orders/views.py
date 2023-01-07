@@ -24,13 +24,13 @@ class OrderDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['title'] = f'Store - Заказ #{self.object.id}'
+        context['title'] = f'UltraStore - Заказ #{self.object.id}'
         return context
 
 
 class OrdersListView(TitleMixin, ListView):
     template_name = 'orders/orders.html'
-    title = 'Stor - Заказы'
+    title = 'UltraStore - Заказы'
     queryset = Order.objects.all()
     ordering = ('-id')
 
@@ -41,16 +41,16 @@ class OrdersListView(TitleMixin, ListView):
 
 class SuccessTemplateView(TitleMixin, TemplateView):
     template_name = 'orders/success.html'
-    title = 'Store - Спасибо за покупку!'
+    title = 'UltraStore - Спасибо за покупку!'
 
 
 class CanceledTemplateView(TemplateView):
     template_name = 'orders/cancel.html'
-    title = 'Store - Оплата не прошла'
+    title = 'UltraStore - Оплата не прошла'
 
 
 class OrderCreateView(TitleMixin, CreateView):
-    title = 'Store - Оформление заказа'
+    title = 'UltraStore - Оформление заказа'
     template_name = 'orders/order-create.html'
     form_class = OrderForm
     success_url = reverse_lazy('orders:order_create')

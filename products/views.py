@@ -10,7 +10,7 @@ from products.models import Basket, Product, ProductCategory
 class IndexView(TitleMixin, TemplateView):
 
     template_name = 'products/index.html'
-    title = 'Store'
+    title = 'UltraStore'
 
 
 class ProductsListView(TitleMixin, ListView):
@@ -18,7 +18,7 @@ class ProductsListView(TitleMixin, ListView):
     paginate_by = 6
     model = Product
     template_name = 'products/products.html'
-    title = 'Store - Каталог'
+    title = 'UltraStore - Каталог'
 
     def get_queryset(self):
         queryset = super(ProductsListView, self).get_queryset()
