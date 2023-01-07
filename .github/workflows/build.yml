@@ -68,7 +68,7 @@ jobs:
           cd /home/sadlaboka/store-server/store
           source ../venv/bin/activate
           python -m pip install -r requirements.txt
-          systemctl restart gunicorn
-          systemctl restart celery
+          echo ${{ secrets.PASSWORD }} | sudo -S systemctl restart gunicorn
+          echo ${{ secrets.PASSWORD }} | sudo -S systemctl restart celery
           systemctl status gunicorn
           systemctl status celery
