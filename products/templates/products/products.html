@@ -16,15 +16,15 @@
 
                 <h1 class="my-4">Категории</h1>
                 <div class="list-group">
-                        {% for category in categories %}
-                            {% if current_category.id == category.id %}
-                                <a href="{% url 'products:category' category.id %}"
+                    {% for category in categories %}
+                        {% if current_category.id == category.id %}
+                            <a href="{% url 'products:category' category.id %}"
                                class="list-group-item list-group-item-action active">{{ category.name }}</a>
-                            {% else %}
+                        {% else %}
                             <a href="{% url 'products:category' category.id %}"
                                class="list-group-item list-group-item-action">{{ category.name }}</a>
-                            {% endif %}
-                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
             </div>
@@ -80,12 +80,21 @@
                                     <h5>{{ product.price }} руб.</h5>
                                     <p class="card-text">{{ product.description }}</p>
                                 </div>
+                                {% if product.id in products_in_baskets %}
+                                    <div class="card-footer text-center">
+                                    <a class="btn btn-outline-info"
+                                       href="{% url 'users:profile' user.id %}">
+                                        В корзине
+                                    </a>
+                                </div>
+                                {% else %}
                                 <div class="card-footer text-center">
                                     <a class="btn btn-outline-success"
                                        href="{% url 'products:basket_add' product.id %}">
-                                        Отправить в корзину
+                                        Добавить в корзину
                                     </a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
 

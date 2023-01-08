@@ -30,6 +30,8 @@ class ProductsListView(TitleMixin, ListView):
         categories = ProductCategory.objects.all()
         context['categories'] = categories
         category_id = self.kwargs.get('category_id')
+        baskets = Basket.objects.filter(user=self.request.user)
+        context['products_in_baskets'] = [basket.product.id for basket in baskets]
         if category_id:
             context['current_category'] = categories.get(id=category_id)
         return context
