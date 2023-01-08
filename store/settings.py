@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.yandex',
     'debug_toolbar',
     'django_extensions',
 
@@ -232,6 +233,14 @@ SOCIALACCOUNT_PROVIDERS = {
             'uid',
             'first_name',
             'last_name'
+        ]
+    },
+    'yandex': {
+        'SCOPE': [
+            'email',
+            'first_name',
+            'surname',
+            'username'
         ]
     }
 }
