@@ -234,14 +234,6 @@ SOCIALACCOUNT_PROVIDERS = {
             'first_name',
             'last_name'
         ]
-    },
-    'yandex': {
-        'SCOPE': [
-            'email',
-            'first_name',
-            'surname',
-            'username'
-        ]
     }
 }
 
