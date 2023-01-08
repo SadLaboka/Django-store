@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
@@ -50,6 +51,21 @@ def basket_add(request, product_id):
         basket.save()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+def basket_down(request, product_id):
+    product = Product.objects.get(id=product_id)
+    basket = Basket.objects.get(user=request.user, product=product)
+    if basket.quantity > 1:
+        basket.quantity -= 1
+        basket.save()
+
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        basket.delete()
+
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 @login_required

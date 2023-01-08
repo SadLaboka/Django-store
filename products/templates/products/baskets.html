@@ -14,7 +14,9 @@
             <li class="list-group-item bg-light">
                 <div class="row text-center">
                     <div class="col-lg-4">
+                        <a href="{% url 'products:basket_add' basket.product.id %}" class="btn btn-outline-dark btn-sm">&#9650;</a>
                         {{ basket.quantity }}
+                        <a href="{% url 'products:basket_down' basket.product.id %}" class="btn btn-outline-dark btn-sm">&#9660;</a>
                     </div>
                     <div class="col-lg-4">{{ basket.sum|intcomma }} руб.</div>
                     <div class="col-lg-4">
