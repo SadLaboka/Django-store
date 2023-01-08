@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from products.models import Product, ProductCategory
 from products.views import ProductsListView
+from users.models import User
 
 
 class IndexViewTestCase(TestCase):
@@ -25,6 +26,21 @@ class ProductsListViewTestCase(TestCase):
         self.products = Product.objects.all()
         self.category = ProductCategory.objects.first()
         self.paginator = ProductsListView.paginate_by
+
+        self.user = {
+            'first_name': 'test_fn',
+            'last_name': 'test_ln',
+            'username': 'testusername',
+            'email': 'test@mail.ru'
+        }
+        user = User.objects.create(**self.user)
+        user.set_password('TestPassword1')
+        user.save()
+        self.data = {
+            'username': self.user['username'],
+            'password': 'TestPassword1',
+        }
+        self.client.post(reverse('users:login'), {'username': 'testusername', 'password': 'TestPassword1'})
 
     def test_list(self):
         path = reverse('products:index')
