@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
@@ -20,6 +19,7 @@ class ProductsListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     title = 'UltraStore - Каталог'
+    ordering = '-quantity'
 
     def get_queryset(self):
         queryset = super(ProductsListView, self).get_queryset()
@@ -31,8 +31,11 @@ class ProductsListView(TitleMixin, ListView):
         categories = ProductCategory.objects.all()
         context['categories'] = categories
         category_id = self.kwargs.get('category_id')
-        baskets = Basket.objects.filter(user=self.request.user)
-        context['products_in_baskets'] = [basket.product.id for basket in baskets]
+        if self.request.user.is_authenticated:
+            baskets = Basket.objects.filter(user=self.request.user)
+            context['products_in_baskets'] = [basket.product.id for basket in baskets]
+        else:
+            context['products_in_baskets'] = []
         if category_id:
             context['current_category'] = categories.get(id=category_id)
         return context

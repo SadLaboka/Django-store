@@ -80,6 +80,7 @@
                                     <h5>{{ product.price }} руб.</h5>
                                     <p class="card-text">{{ product.description }}</p>
                                 </div>
+                            {% if product.quantity > 0 %}
                                 {% if product.id in products_in_baskets %}
                                     <div class="card-footer text-center">
                                         <a class="btn btn-outline-info"
@@ -95,6 +96,20 @@
                                         </a>
                                     </div>
                                 {% endif %}
+                            {% else %}
+                                {% if user.is_authenticated %}
+                                <div class="card-footer text-center">
+                                        <a class="btn btn-outline-danger"
+                                           href="#">
+                                            Уведомить
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <div class="card-footer text-center">
+                                        <h5>Нет в наличии</h5>
+                                    </div>
+                                    {% endif %}
+                            {% endif %}
                             </div>
                         </div>
 

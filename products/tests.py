@@ -23,7 +23,7 @@ class ProductsListViewTestCase(TestCase):
     fixtures = ['categories.json', 'goods.json']
 
     def setUp(self):
-        self.products = Product.objects.all()
+        self.products = Product.objects.all().order_by('-quantity')
         self.category = ProductCategory.objects.first()
         self.paginator = ProductsListView.paginate_by
 
