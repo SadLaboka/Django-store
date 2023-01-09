@@ -82,18 +82,18 @@
                                 </div>
                                 {% if product.id in products_in_baskets %}
                                     <div class="card-footer text-center">
-                                    <a class="btn btn-outline-info"
-                                       href="{% url 'users:profile' user.id %}">
-                                        В корзине
-                                    </a>
-                                </div>
+                                        <a class="btn btn-outline-info"
+                                           href="{% url 'users:profile' user.id %}">
+                                            В корзине
+                                        </a>
+                                    </div>
                                 {% else %}
-                                <div class="card-footer text-center">
-                                    <a class="btn btn-outline-success"
-                                       href="{% url 'products:basket_add' product.id %}">
-                                        Добавить в корзину
-                                    </a>
-                                </div>
+                                    <div class="card-footer text-center">
+                                        <a class="btn btn-outline-success"
+                                           href="{% url 'products:basket_add' product.id %}">
+                                            Добавить в корзину
+                                        </a>
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
@@ -110,13 +110,48 @@
                                            href="{% url 'products:category_paginator' current_category.id page_obj.previous_page_number %}"
                                            tabindex="-1" aria-disabled="true">Предыдущая</a>
                                     </li>
+                                    {% if page_obj.number|add:'-2' > 1 %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{% url 'products:category_paginator' current_category.id 1 %}"
+                                               tabindex="-1" aria-disabled="true">1</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if page_obj.number|add:'-2' >= 2 %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{% url 'products:category_paginator' current_category.id page_obj.previous_page_number|add:'-2' %}"
+                                               tabindex="-1" aria-disabled="true">. . .</a>
+                                        </li>
+                                    {% endif %}
                                 {% endif %}
                                 {% for page in paginator.page_range %}
-                                    <li class="page-item {% if page == page_obj.number %}active{% else %}{% endif %}"><a class="page-link"
-                                                             href="{% url 'products:category_paginator' current_category.id page %}">{{ page }}</a>
-                                    </li>
+                                    {% if page == page_obj.number %}
+                                        <li class="page-item active"><a
+                                                class="page-link"
+                                                href="#">{{ page }}</a>
+                                        </li>
+                                    {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                                        <li class="page-item"><a
+                                                class="page-link"
+                                                href="{% url 'products:category_paginator' current_category.id page %}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
+
                                 {% endfor %}
                                 {% if page_obj.has_next %}
+                                    {% if page_obj.number|add:'3' < page_obj.paginator.num_pages %}
+                                        <li class="page-item"><a
+                                                class="page-link"
+                                                href="{% url 'products:category_paginator' current_category.id page_obj.next_page_number|add:'2' %}">. . .</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if page_obj.number|add:'2' < page_obj.paginator.num_pages %}
+                                        <li class="page-item"><a
+                                                class="page-link"
+                                                href="{% url 'products:category_paginator' current_category.id page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+                                        </li>
+                                    {% endif %}
                                     <li class="page-item">
                                         <a class="page-link"
                                            href="{% url 'products:category_paginator' current_category.id page_obj.next_page_number %}">Следующая</a>
@@ -135,15 +170,48 @@
                                            href="{% url 'products:paginator' page_obj.previous_page_number %}"
                                            tabindex="-1" aria-disabled="true">Предыдущая</a>
                                     </li>
+                                    {% if page_obj.number|add:'-2' > 1 %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{% url 'products:paginator' 1 %}"
+                                               tabindex="-1" aria-disabled="true">1</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if page_obj.number|add:'-2' >= 2 %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{% url 'products:paginator' page_obj.previous_page_number|add:'-2' %}"
+                                               tabindex="-1" aria-disabled="true">. . .</a>
+                                        </li>
+                                    {% endif %}
                                 {% endif %}
                                 {% for page in paginator.page_range %}
-
-                                    <li class="page-item {% if page == page_obj.number %}active{% else %}{% endif %}"><a class="page-link"
-                                                             href="{% url 'products:paginator' page %}">{{ page }}</a>
-                                    </li>
+                                    {% if page == page_obj.number %}
+                                        <li class="page-item active"><a
+                                                class="page-link"
+                                                href="#">{{ page }}</a>
+                                        </li>
+                                    {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                                        <li class="page-item"><a
+                                                class="page-link"
+                                                href="{% url 'products:paginator' page %}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
 
                                 {% endfor %}
                                 {% if page_obj.has_next %}
+                                    {% if page_obj.number|add:'3' < page_obj.paginator.num_pages %}
+                                        <li class="page-item"><a
+                                                class="page-link"
+                                                href="{% url 'products:paginator' page_obj.next_page_number|add:'2' %}">. . .</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if page_obj.number|add:'2' < page_obj.paginator.num_pages %}
+                                        <li class="page-item"><a
+                                                class="page-link"
+                                                href="{% url 'products:paginator' page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+                                        </li>
+                                    {% endif %}
                                     <li class="page-item">
                                         <a class="page-link"
                                            href="{% url 'products:paginator' page_obj.next_page_number %}">Следующая</a>
