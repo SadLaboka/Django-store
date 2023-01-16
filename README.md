@@ -1,3 +1,5 @@
+[![My Skills](https://skillicons.dev/icons?i=py,django,postgres,html,css,bootstrap,redis,github)](https://skillicons.dev)
+
 # Django-store
 
 SimplePython/Django+Bootstrap online-shop.
