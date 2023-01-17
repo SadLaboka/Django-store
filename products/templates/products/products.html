@@ -1,5 +1,5 @@
 {% extends 'products/base.html' %}
-{% load static cache %}
+{% load static cache humanize %}
 {% block title %}
     <title>{% if current_category %} UltraStore - {{ current_category.name }}{% else %}{{ title }}{% endif %}</title>
 {% endblock %}
@@ -68,16 +68,16 @@
                     {% for product in object_list %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
-                                <a href="#">
+                                <a href="{% url 'products:product_detail' product.id %}">
                                     <img class="card-img-top"
                                          src="{{ product.image.url }}"
                                          alt="">
                                 </a>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="#">{{ product.name }}</a>
+                                        <a href="{% url 'products:product_detail' product.id %}">{{ product.name }}</a>
                                     </h4>
-                                    <h5>{{ product.price }} руб.</h5>
+                                    <h5>{{ product.price|intcomma }} руб.</h5>
                                     <p class="card-text">{{ product.description }}</p>
                                 </div>
                             {% if product.quantity > 0 %}
@@ -244,7 +244,7 @@
 {% endblock %}
 
 {% block footer %}
-    <footer class="py-5 bg-dark">
+    <footer class="py-4 bg-dark ">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
         </div>

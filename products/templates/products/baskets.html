@@ -7,12 +7,14 @@
     {% for basket in baskets %}
         <div class="card mb-3">
             <div class="card-body">
-                <a href="#">
+                <a href="{% url 'products:product_detail' basket.product.id %}">
                     <img class="card-img-top w-25 h-25"
                          src="{{ basket.product.image.url }}"
                          alt="">
                 </a>
-                <h5 class="card-title">{{ basket.product.name }}</h5>
+                <a href="{% url 'products:product_detail' basket.product.id %}"><h5
+                        class="card-title">{{ basket.product.name }}</h5></a>
+
                 <p class="card-text">{{ basket.product.description }}</p>
             </div>
             <ul class="list-group list-group-flush">

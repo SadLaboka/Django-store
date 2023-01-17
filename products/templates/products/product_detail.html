@@ -1,0 +1,112 @@
+{% extends 'products/base.html' %}
+{% load static cache humanize %}
+{% block title %}
+    <title>{{ product.name }}</title>
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">UltraStore</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'products:index' %}">Каталог <i
+                                class="fas fa-shopping-bag"></i>
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'users:profile' user.id %}">Профиль</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'orders:orders' %}">Заказы</a></li>
+                        {% if user.is_superuser or user.is_staff %}
+                            <li><a class="dropdown-item" href="{% url 'admin:index' %}">Админ-панель</a></li>
+                            <li>
+                        {% endif %}
+                    <hr class="dropdown-divider" style="color: #e9ecef">
+                    </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'users:logout' %}">
+                                Выйти
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <!-- Product section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
+                                           src="{{ product.image.url }}" alt="..."/></div>
+                <div class="col-md-6">
+
+                    <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                    <div class="small mb-1">Количество на складе: {{ product.quantity }}</div>
+                    <p class="lead">{% if product.description %} {{ product.description }} {% else %} Описание
+                        отсутствует... {% endif %}</p>
+                    <div class="fs-5 mt-5 mb-3">
+                        <span>Цена: {{ product.price|intcomma }} руб.</span>
+                    </div>
+                    <div class="d-flex">
+                        {% if product.quantity > 0 %}
+                            {% if product.id in products_in_baskets %}
+                                <a class="btn btn-outline-info flex-shrink-0" type="button"
+                                   href="{% url 'users:profile' user.id %}">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Уже в корзине
+                                </a>
+                            {% else %}
+                                <a class="btn btn-outline-success flex-shrink-0" type="button"
+                                   href="{% url 'products:basket_add' product.id %}">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Добавить в корзину
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            {% if user.is_authenticated %}
+                                <a class="btn btn-outline-danger flex-shrink-0" type="button"
+                                   href="#">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Уведомить
+                                </a>
+                            {% else %}
+                                <h5>Нет в наличии</h5>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block footer %}
+    <footer class="py-4 bg-dark fixed-bottom">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+{% endblock %}

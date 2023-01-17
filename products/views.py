@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponseRedirect
-from django.views.generic.base import TemplateView
+from django.shortcuts import HttpResponseRedirect, render
+from django.views.generic.base import TemplateView, View
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
@@ -11,6 +11,18 @@ class IndexView(TitleMixin, TemplateView):
 
     template_name = 'products/index.html'
     title = 'UltraStore'
+
+
+class ProductDetailView(View):
+
+    def get(self, request, *args, **kwargs):
+        context = {"product": Product.objects.get(id=kwargs["pk"])}
+        if request.user.is_authenticated:
+            baskets = Basket.objects.filter(user=request.user)
+            context['products_in_baskets'] = [basket.product.id for basket in baskets]
+        else:
+            context['products_in_baskets'] = []
+        return render(request, 'products/product_detail.html', context=context)
 
 
 class ProductsListView(TitleMixin, ListView):
