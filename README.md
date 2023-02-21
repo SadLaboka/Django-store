@@ -2,7 +2,7 @@
 
 # Django-store
 
-SimplePython/Django+Bootstrap online-shop.
+Simple Python/Django+Bootstrap online-shop.
 
 ## Build:
 [![Django CI](https://github.com/SadLaboka/Django-store/actions/workflows/build.yml/badge.svg)](https://github.com/SadLaboka/Django-store/actions/workflows/build.yml)
@@ -11,7 +11,7 @@ SimplePython/Django+Bootstrap online-shop.
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a5c68370c7560ab4733f/test_coverage)](https://codeclimate.com/github/SadLaboka/Django-store/test_coverage)
 
 ## Example:
-### https://sadlaboka-example.site/
+### -
 
 ## Links:
 
